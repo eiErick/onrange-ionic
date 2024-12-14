@@ -1,0 +1,6 @@
+{
+  "appId": "io.onrange.onrange",
+  "appName": "Onrange",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { ConfiguracoesComponent } from '../pages/configuracoes/configuracoes.component';
 
 export const routes: Routes = [
   {
@@ -7,9 +8,9 @@ export const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'cardapio',
         loadComponent: () =>
-          import('../tab1/tab1.page').then((m) => m.Tab1Page),
+          import('../pages/cardapio/cardapio.component').then((m) => m.CardapioComponent),
       },
       {
         path: 'tab2',
@@ -23,14 +24,18 @@ export const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/cardapio',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/cardapio',
     pathMatch: 'full',
+  },
+  {
+    path: 'configuracoes',
+    component: ConfiguracoesComponent,
   },
 ];

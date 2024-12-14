@@ -1,0 +1,67 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Configurações
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Onrange</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main">
+
+    <div class="menu-theme">
+      <p>Tema</p>
+      <div>
+        <ion-select [(ngModel)]="selectedTheme" (change)="callSetTheme()">
+          @for (item of themes; track item) {
+            <ion-select-option [value]="item.value">{{ item.viewValue }}</ion-select-option>
+          }
+        </ion-select>
+      </div>
+    </div>
+    
+    <div class="menu-phrases">
+      <p>Exibir Frases</p>
+      <ion-toggle (change)="setTogglePhrases()" [(ngModel)]="togglePhrases" />
+    </div>
+    
+    <div class="menu-time">
+      <h3>Horários do Refeitório</h3>
+      <p>Lanche: 10h às 10h30min</p>
+      <p>Almoço: 12h às 13h</p>
+      <p>Lanche: 15h30min às 16h</p>
+    </div>
+    
+    <div class="menu-last-chage">
+      <h3>Última Alteração no Servidor</h3>
+      <span>{{ date }}</span>
+    </div>
+    
+    <div class="menu-credits">
+      <h3>Créditos</h3>
+      <a target="_blank" href="https://www.instagram.com/onrangedev">Onrangedev</a>
+      <a target="_blank" href="https://www.instagram.com/davi_barbosa3009">Davi Barbosa</a>
+      <a target="_blank" href="https://www.instagram.com/eierickdasilva">Érick da Silva</a>
+      <a target="_blank" href="https://www.instagram.com/gustavolima_sem_o_t">Gustavo Lima</a>
+      <a target="_blank" href="https://www.instagram.com/iagomenezes37">Iago Menezes</a>
+      <a target="_blank" href="https://www.instagram.com/kiammota">Kiam Mota</a>
+    </div>
+    
+    <div class="menu-qrcode">
+      <h3>qr code</h3>
+      <img src="assets/qrcode.png" alt="qr code">
+      <ion-button (click)="share()">Compartilhar</ion-button> 
+    </div>
+  </div>
+</ion-content>
