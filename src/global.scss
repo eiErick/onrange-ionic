@@ -42,12 +42,14 @@
     --color-text: #000;
     --bg-color: #fff;
     --pg-color: #EBEBEB;
+    --pg-color-hover: #dddddd;
     --border-color: #00000033;
 }
 
 .dark {
-    --bg-color: #1a1f24;
-    --pg-color: #33353a;
+    --bg-color: #1f1f1f;
+    --pg-color: #1f1f1f;
+    --pg-color-hover: #232323;
     --color-text: #fff;
     --border-color: #ffffff33;
 }
@@ -77,14 +79,14 @@ body {
 }
 
 .btns {
-    background-color: var(--orange);
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color .3s;
-    font-size: 16px;
+    // background-color: var(--orange);
+    // border: none;
+    --border-radius: 20px;
+    --padding: 10px 20px;
+    // color: #fff;
+    // cursor: pointer;
+    // transition: background-color .3s;
+    // font-size: 16px;
 }
 
 .btns:hover {
@@ -93,6 +95,15 @@ body {
 
 .btns:active {
     background-color: var(--orange-dark);
+}
+
+.btn-floating {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    --border-radius: 15px;
 }
 
 .inp {

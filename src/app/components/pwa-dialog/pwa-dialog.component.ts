@@ -9,7 +9,7 @@ import {
 
 @Component({
   selector: 'app-pwa-dialog',
-  // styleUrl: './pwa-dialog.component.css',
+  styleUrl: './pwa-dialog.component.scss',
   standalone: true,
   imports: [
     MatDialogActions,

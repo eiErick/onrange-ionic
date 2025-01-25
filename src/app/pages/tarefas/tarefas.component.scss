@@ -1,0 +1,129 @@
+.container-task, .completed-task-container {
+    width: 50%;
+    border-radius: 12px;
+    margin: 20px auto;
+    background-color: var(--pg-color);
+    padding: 20px;
+
+    .task-container-header {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        h3 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        span {
+            ion-icon {
+                display: inline-block;
+                transition: transform 0.3s ease; /* Define a duração e suavidade da transição */
+            }
+            
+            .rotate-up {
+                transform: rotate(0deg);
+            }
+            
+            .rotate-down {
+                transform: rotate(-180deg);
+            }
+        }
+
+        .completed-task-menu {
+            display: flex;
+            gap: 8px;
+        }
+    }
+    
+    .task {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        background-color: #ffffff11;
+        border-radius: 8px;
+        padding: 10px 10px;
+        margin-top: 10px;
+
+        div {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            gap: 10px;
+
+            ion-radio-group {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            div {
+                display: flex;
+                flex-direction: column;
+                text-align: start;
+                align-items: start;
+                justify-content: center;
+
+                .task-description {
+                    font-size: 14px;
+                }
+            }
+
+            .checkbox {
+                width: 18px;
+                height: 18px;
+                border-radius: 99px;
+                background-color: transparent;
+                border: 2px solid var(--color-text);
+                cursor: pointer;
+            }
+            
+            .checkbox-checked {
+                width: 18px;
+                height: 18px;
+                border-radius: 99px;
+                background-color: var(--primary-color);
+                border: 2px solid var(--color-text);
+                cursor: pointer;
+            }
+        }
+
+        .trash {
+            font-size: 24px;
+            cursor: pointer;
+        }
+    }
+}
+
+.task-modal {
+    --border-radius: 20px;
+    --height: 500px;
+
+    ion-input {
+        text-align: start;
+    }
+
+    .add-task-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .add-task-footer {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 500px) {
+    .container-task, .completed-task-container {
+        width: 90%;
+        margin: 15px auto;
+        padding: 10px;
+    }
+}

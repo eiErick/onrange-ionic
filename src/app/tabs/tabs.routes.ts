@@ -13,18 +13,23 @@ export const routes: Routes = [
           import('../pages/cardapio/cardapio.component').then((m) => m.CardapioComponent),
       },
       {
-        path: 'tab2',
+        path: 'tarefas',
         loadComponent: () =>
-          import('../tab2/tab2.page').then((m) => m.Tab2Page),
+          import('../pages/tarefas/tarefas.component').then((m) => m.TarefasComponent),
       },
       {
-        path: 'tab3',
+        path: 'notas',
         loadComponent: () =>
-          import('../tab3/tab3.page').then((m) => m.Tab3Page),
+          import('../pages/notas/notas.component').then((m) => m.NotasComponent),
       },
       {
         path: '',
         redirectTo: '/tabs/cardapio',
+        pathMatch: 'full',
+      },
+      {
+        path: 'tarefas',
+        redirectTo: '/tabs/tarefas',
         pathMatch: 'full',
       },
     ],
@@ -37,5 +42,15 @@ export const routes: Routes = [
   {
     path: 'configuracoes',
     component: ConfiguracoesComponent,
+  },
+  {
+    path: 'tarefas',
+    redirectTo: '/tabs/tarefas',
+    pathMatch: 'full',
+  },
+  {
+    path: 'notas',
+    redirectTo: '/tabs/notas',
+    pathMatch: 'full',
   },
 ];

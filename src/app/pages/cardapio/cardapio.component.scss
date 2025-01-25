@@ -1,19 +1,19 @@
 ion-header {
     ion-toolbar {
-        ion-title {
-            text-align: start;
-            margin-left: 10px;
+        // ion-title {
+            // text-align: start;
+            // margin-left: 10px;
 
-            div {
-                display: flex;
-                align-items: center;
-                gap: 10px;
+            // div {
+            //     display: flex;
+            //     align-items: center;
+            //     gap: 10px;
 
-                span {
-                    font-size: 24px;
-                }
-            }
-        }
+            //     span {
+            //         font-size: 24px;
+            //     }
+            // }
+        // }
 
         ion-buttons {
             display: flex;
@@ -69,15 +69,83 @@ div.settings-btn:hover, div.settings-btn:active {
     color: var(--primary-color);
 }
 
+.days {
+    width: 280px;
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto;
+    margin-bottom: 20px;
+    border: 1px solid #484C50;
+    border-radius: 8px;
+    padding: 5px 0;
+    
+    span {
+        cursor: pointer;
+        transition: .2s;
+        padding: 4px 10px;
+        border-radius: 5px;
+    }
+
+    .day-selected {
+        background: #ffffff22;
+    }
+}
+
+ion-content {
+    --offset-bottom: .1px !important;
+}
+
 .main {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    overflow: scroll;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    color: var(--color-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    height: 100%;
+
+    .container-menu {
+        position: relative;
+        background-color: var(--pg-color);
+        border-radius: 10px;
+        width: 280px;
+        height: 290px;
+
+            div {
+                strong {
+                    font-family: "League Spartan", sans-serif;
+                }
+            }
+            
+            ion-button {
+                position: absolute;
+                transform: translate(-50%, -120%);
+                top: 100%;
+            }
+            
+            div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                padding: 10px;
+            }
+            
+            h3 {
+                font-family: "League Spartan", sans-serif;
+                text-transform: uppercase;
+                background-color: var(--primary-color);
+                padding: 10px 0;
+                margin: 10px;
+                font-size: 24px;
+                border-radius: 8px;
+                color: #fff;
+            }
+            
+            .today {
+                background-color: var(--green);
+            }
+    }
     
     swiper-container {
         display: flex;
@@ -101,11 +169,10 @@ div.settings-btn:hover, div.settings-btn:active {
                 }
             }
             
-            button {
+            ion-button {
                 position: absolute;
                 transform: translate(-50%, -120%);
                 top: 100%;
-                width: 170px;
             }
             
             div {
@@ -134,22 +201,26 @@ div.settings-btn:hover, div.settings-btn:active {
     }
 }
 
-footer {
-    display: flex;
-    justify-content: center;
-    width: 90%;
-    position: fixed;
-    transform: translate(-50%);
-    left: 50%;
-    bottom: 10px;
+// .ion-tab-bar {
+//     margin-top: 56px;
+// }
+
+// footer {
+//     display: flex;
+//     justify-content: center;
+//     width: 90%;
+//     position: fixed;
+//     transform: translate(-50%);
+//     left: 50%;
+//     bottom: 10px;
     
-    p {
-        background-color: var(--pg-color);
-        padding: 5px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-}
+//     p {
+//         background-color: var(--pg-color);
+//         padding: 5px;
+//         border-radius: 5px;
+//         cursor: pointer;
+//     }
+// }
 
 @keyframes spin {
     0% { transform: rotate(0deg); }

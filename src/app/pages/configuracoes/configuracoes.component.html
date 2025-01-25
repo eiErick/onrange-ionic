@@ -6,9 +6,9 @@
     <ion-title>
       Configurações
     </ion-title>
-    <ion-buttons slot="end">
+    <!-- <ion-buttons slot="end">
       <ion-menu-button auto-hide="false"></ion-menu-button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-toolbar>
 </ion-header>
 
@@ -20,10 +20,10 @@
   </ion-header>
   <div class="main">
 
-    <div class="menu-theme">
+    <!-- <div class="menu-theme">
       <p>Tema</p>
       <div>
-        <ion-select [(ngModel)]="selectedTheme" (change)="callSetTheme()">
+        <ion-select [(ngModel)]="selectedTheme" (ionChange)="callSetTheme()">
           @for (item of themes; track item) {
             <ion-select-option [value]="item.value">{{ item.viewValue }}</ion-select-option>
           }
@@ -34,7 +34,7 @@
     <div class="menu-phrases">
       <p>Exibir Frases</p>
       <ion-toggle (change)="setTogglePhrases()" [(ngModel)]="togglePhrases" />
-    </div>
+    </div> -->
     
     <div class="menu-time">
       <h3>Horários do Refeitório</h3>

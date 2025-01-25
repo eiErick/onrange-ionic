@@ -44,6 +44,8 @@ export class ConfiguracoesComponent {
   private loadTheme():void {
     const savedTheme = this.themeService.getTheme();
     if (savedTheme !== null) this.themes.forEach((item, index) => item.value === savedTheme ? this.selectedTheme = this.themes[index].value : '');
+
+    console.log(savedTheme);
   }
 
   private loadToggles():void {
@@ -67,9 +69,9 @@ export class ConfiguracoesComponent {
     this.storageService.setItem('togglePhrases', this.togglePhrases);
   }
 
-  public callSetTheme(): void {
-    this.themeService.setTheme(this.selectTheme.nativeElement.value);
-  }
+  // public callSetTheme(): void {
+  //   if (this.selectedTheme === 'light' || this.selectedTheme === 'dark' || this.selectedTheme === 'fulldark') this.themeService.setTheme(this.selectedTheme);
+  // }
 
   public async share() {
     try {

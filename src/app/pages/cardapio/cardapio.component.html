@@ -1,19 +1,17 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
     <ion-title>
-      <div>
         <span (click)="playSound()">CETEPS</span>
-        @if (load) {
+        <!-- @if (load) {
           <div class="spinner load-title"></div>
-        }
-      </div>
+        } -->
     </ion-title>
-    <ion-buttons slot="end">
+    <!-- <ion-buttons slot="end">
       @if (shouldShowInstallButton) {
         <ion-button shape="round" color="primary" (click)="openPwaDialog()">Instalar App</ion-button>
       }
       <ion-icon name="settings-sharp" [routerLink]="['/configuracoes']"></ion-icon>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-toolbar>
 </ion-header>
 
@@ -23,8 +21,13 @@
       <ion-title size="large">Onrange</ion-title>
     </ion-toolbar>
   </ion-header>
+  <div class="days">
+    @for (item of daysFilter; track $index) {
+      <span (click)="selectDay(item.day)" [ngClass]="{'day-selected': item.select}" >{{ item.day | truncateBeforeDash }}</span>
+    }
+  </div>
   <div class="main">
-    <swiper-container #swiper slides-per-view="auto" space-between="30" keyboard="true" centered-slides="true" centered-slides="true" grab-cursor="true" mousewheel="true">
+    <!-- <swiper-container #swiper slides-per-view="auto" space-between="30" keyboard="true" centered-slides="true" centered-slides="true" grab-cursor="true" mousewheel="true">
       @for (item of menu; track $index) {
         <swiper-slide>
           @if (today === item.day) {
@@ -38,9 +41,30 @@
             <strong class="almoco">ALMOÇO</strong>
             <span class="data-almoco" id="segundaAlmoco">{{ item.louch }}</span>
           </div>
-          <!-- <button mat-flat-button (click)="openNutritionalDialog(item.snackCalories, item.snackLactose, item.louchCalories, item.louchLactose)">Info Nutricionais</button> -->
+          <ion-button color="primary btns" (click)="openNutritionalDialog(item.snackCalories, item.snackLactose, item.louchCalories, item.louchLactose)">Nutrição</ion-button>
         </swiper-slide>
       }
-    </swiper-container>
+    </swiper-container> -->
+    
+    @for (item of filteredMenu; track $index) {
+      <div class="container-menu">
+        @if (today === item.day) {
+          <h3 class="today">Hoje</h3>
+        } @else {
+          <h3>{{ item.day }}</h3>
+        }
+        <div>
+          <strong class="merenda">MERENDA</strong>
+          <span class="data-merenda" id="segundaMerenda">{{ item.snack }}</span>
+          <strong class="almoco">ALMOÇO</strong>
+          <span class="data-almoco" id="segundaAlmoco">{{ item.louch }}</span>
+        </div>
+        <ion-button color="primary btns" (click)="openNutritionalDialog(item.snackCalories, item.snackLactose, item.louchCalories, item.louchLactose)">Nutrição</ion-button>
+      </div>
+    }
   </div>
+
+    <ion-button [routerLink]="['/configuracoes']" class="btn-floating">
+    <ion-icon md="settings-sharp"></ion-icon>
+  </ion-button>
 </ion-content>

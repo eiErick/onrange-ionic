@@ -1,0 +1,144 @@
+ion-grid {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    ion-row {
+        transition: .2s;
+        width: 50%;
+        cursor: pointer;
+        margin: 15px;
+        background-color: var(--pg-color);
+        padding: 20px;
+        border-radius: 10px;
+
+        .subject-name {
+            text-align: start;
+        }
+
+        ion-col {
+            text-align: end;
+        }
+    }
+
+    ion-row:hover {
+        background-color: var(--pg-color-hover);
+    }
+}
+
+.add-subject-modal {
+    --border-radius: 20px;
+    --height: 500px;
+
+    ion-input {
+        text-align: start;
+    }
+
+    .add-subject-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .add-subject-footer {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        margin-top: 15px;
+    }
+}
+
+.add-note-modal {
+    --height: 100vh;
+    --width: 100vw;
+
+    ion-header {
+        ion-toolbar {
+            ion-title {
+                margin-right: 48px;
+            }
+        }
+    }
+
+    ion-input {
+        text-align: start;
+    }
+
+    .add-note-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .add-note-footer {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        margin-top: 15px;
+    }
+}
+
+.subject-modal {
+    --height: 100vh;
+    --width: 100vw;
+
+    ion-header {
+        ion-toolbar {
+            ion-title {
+                margin-right: 48px;
+            }
+        }
+    }
+
+    .grid-subject-modal {
+        .note-card {
+            margin: 15px;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: end;
+            background-color: var(--pg-color);
+
+            .note {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 15px;
+                font-size: 22px;
+            }
+
+            .note-description {
+                display: flex;
+                flex-direction: column;
+                text-align: start;
+                margin-bottom: 15px;
+
+                div {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 10px;
+                    font-size: 16px;
+
+                    .trash {
+                        font-size: 20px;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            div {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    ion-grid {
+        ion-row {
+            width: 90%;
+            margin: 15px auto;
+            padding: 10px;
+        }
+    }
+}

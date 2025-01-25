@@ -12,8 +12,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { logoIonic, homeOutline, settingsSharp } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { PwaDialogService } from 'src/app/services/pwa-dialog.service';
-// import { NutritionDialogComponent } from '../../components/nutrition-dialog/nutrition-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { NutritionDialogComponent } from 'src/app/components/nutrition-dialog/nutrition-dialog.component';
 // import { MatDialog } from '@angular/material/dialog';
+
+import { IonicModule } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { TruncateBeforeDashPipe } from 'src/app/pipes/truncate-before-dash.pipe';
+import { CommonModule } from '@angular/common';
+
+IonicModule.forRoot({
+  innerHTMLTemplatesEnabled: true // Habilita templates HTML customizados
+});
 
 register();
 
@@ -34,6 +44,8 @@ register();
     // MatButtonModule,
     HttpClientModule,
     MatIconModule,
+    TruncateBeforeDashPipe,
+    CommonModule,
   ],
   providers: [spreadsheetsService],
 })
@@ -41,22 +53,26 @@ export class CardapioComponent  implements OnInit {
   phrases = ['Alimente seu corpo, cultive sua saúde.', 'Uma boa alimentação é o primeiro passo para uma vida mais saudável.', 'Coma bem, viva melhor.', 'Seu corpo agradece cada alimento saudável.', 'A comida é o combustível do seu corpo. Abasteça-o com o melhor!', 'A saúde começa no prato.', 'Alimente seus sonhos com uma dieta balanceada.', 'Uma dieta equilibrada é a receita para uma vida feliz e saudável.', 'Invista em sua saúde, invista em uma boa alimentação.',
     'Cada garfada é uma oportunidade para nutrir seu corpo.', 'A alimentação saudável não é uma dieta, é um estilo de vida.', 'Você é o que você come. Escolha bem!', 'A comida é o nosso melhor remédio.', 'Cozinhar com amor é nutrir a alma.', 'Uma alimentação saudável é um presente para o seu futuro.','A comida é a nossa primeira medicina.', 'A alimentação saudável é a base para uma vida ativa e produtiva.', 'Ame seu corpo, alimente-o com carinho.', 'O que você come hoje define como você se sentirá amanhã.', 'A comida não é apenas combustível, é uma experiência.', 'A alimentação é uma forma de amor próprio.', 'Escolha alimentos que alimentem seu corpo e seu espírito.', 'A comida conecta as pessoas e a natureza.', 'A alimentação saudável é um ato de amor por você mesmo.', 'A alimentação saudável é um investimento a longo prazo.', 'Cada escolha alimentar é uma oportunidade para crescer.','A comida é a nossa linguagem universal. Fale a linguagem da saúde.', 'A natureza nos oferece a melhor farmácia: os alimentos naturais.', 'Um corpo saudável é a nossa maior riqueza.', 'A comida é a arte de nutrir o corpo e a alma.', 'A felicidade se encontra também no prato.', 'A alimentação saudável é um hábito, não uma obrigação.', 'Cozinhar é um ato de amor e cuidado consigo mesmo.', 'A comida é a nossa primeira medicina preventiva.', 'Uma boa digestão é a base de uma boa saúde.', 'A alimentação saudável nos conecta com a natureza e com nós mesmos.', 'Escolha alimentos que te deixem leve e energizado.', 'A comida é celebração da vida.', 'A alimentação saudável é um estilo de vida que contagia.', 'Um corpo bem nutrido é mais resistente a doenças.', 'A comida é a nossa primeira casa.', 'A alimentação saudável é um ato de gratidão à vida.', 'Coma devagar e saboreie cada mordida.', 'A comida é a nossa melhor companhia.', 'A alimentação saudável é um investimento no futuro.', 'A comida nos conecta com nossas raízes.', 'A alimentação saudável é um ato de amor pela vida.', 'A comida é a nossa primeira paixão.', 'A alimentação saudável é um estilo de vida que transforma.', 'Um corpo saudável é uma mente saudável.'];
     
-    // readonly dialog = inject(MatDialog);
+    readonly dialog = inject(MatDialog);
     
-    shouldShowInstallButton: boolean = true;
-    phrase!: string;
-    data: any;
-    menu: Array<SheetsDataInterface> = [];
-    days: string[] = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira'];
-    load: boolean = false;
-    isOutOfAir: boolean = false;
-    today: string = '';
-    alertButtons = ['Action'];
+    public shouldShowInstallButton: boolean = false;
+    public phrase!: string;
+    public data: any;
+    public menu: Array<SheetsDataInterface> = [];
+    public filteredMenu: Array<SheetsDataInterface> = [];
+    public days: string[] = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira'];
+    public daysFilter: any[] = [{day: 'Segunda-feira', select: false}, {day: 'Terça-feira', select: false}, {day: 'Quarta-feira', select: false}, {day: 'Quinta-feira', select: false}, {day: 'Sexta-feira', select: false}];
+    public load: boolean = false;
+    public isOutOfAir: boolean = false;
+    public today: string = '';
+    public alertButtons = ['Action'];
+    public alertNutrition: boolean = false;
   
     constructor(
       private storageService: StorageService,
       private spreadsheets: spreadsheetsService,
       private pwaDialogService: PwaDialogService,
+      private alertController: AlertController,
     ) {
       addIcons({
         settingsSharp,
@@ -65,7 +81,7 @@ export class CardapioComponent  implements OnInit {
   
     async ngOnInit() {
       this.loadPhrase();
-      // this.shouldShowInstallButton = this.pwaDialogService.showInstallBanner();
+      this.shouldShowInstallButton = this.pwaDialogService.showInstallBanner();
   
       const todayNum = new Date().getDay();
       if (todayNum !== 0 && todayNum !== 6) this.today = this.days[todayNum - 1];
@@ -75,6 +91,15 @@ export class CardapioComponent  implements OnInit {
   
       if (savedMenu) savedMenu.forEach((item) => this.menu.push(new SheetsData(item.day, item.louch, item.snack, item.snackCalories, item.snackLactose, item.louchCalories, item.louchLactose)));
       if (savedOutOfAir) this.isOutOfAir = savedOutOfAir;
+
+      this.menu.forEach((item) => {
+        if (item.day === this.today) {
+          const menuToday = new SheetsData(item.day, item.louch, item.snack, item.snackCalories, item.snackLactose, item.louchCalories, item.louchLactose);
+          this.menu.push(menuToday);
+        }
+      });
+
+      this.filteredMenu = this.menu;
   
       if (this.menu.length != 0) {
         if (navigator.onLine && !this.isOutOfAir) {
@@ -139,7 +164,7 @@ export class CardapioComponent  implements OnInit {
       const num = Math.floor(Math.random() * (this.phrases.length - 0) + 0);
       this.phrase = `"${this.phrases[num]}"`;
     }
-  
+
     private loadCard(): void {    
       this.clearMenu();
       for (let i = 0; i < this.days.length; i++) {
@@ -155,13 +180,29 @@ export class CardapioComponent  implements OnInit {
         this.menu.push(sheetData);
       }
     }
+
+    public selectDay(day: string) {
+      this.filteredMenu = [];
+        
+      this.daysFilter.forEach(item => {
+        if (item.day === day) item.select = !item.select;
+      });
     
-    // public openNutritionalDialog(snackCalories: number, snackLactose: boolean, louchCalories: number, louchLactose: boolean) {
-    //   const dialogRef = this.dialog.open(NutritionDialogComponent, {
-    //     data: {snackCalories: snackCalories, snackLactose: snackLactose, louchCalories: louchCalories, louchLactose: louchLactose},
-    //   });
-    //   dialogRef.afterClosed().subscribe();
-    // }
+      this.filteredMenu = this.menu.filter(menu => {
+        const dayFilter = this.daysFilter.find(item => item.day === menu.day);
+        return dayFilter?.select;
+      });
+    
+      if (this.filteredMenu.length === 0) this.filteredMenu = [...this.menu];
+    }
+    
+    public async openNutritionalDialog(snackCalories: number, snackLactose: boolean, louchCalories: number, louchLactose: boolean) {
+      const dialogRef = this.dialog.open(NutritionDialogComponent, {
+        data: {snackCalories: snackCalories, snackLactose: snackLactose, louchCalories: louchCalories, louchLactose: louchLactose},
+      });
+      dialogRef.afterClosed().subscribe();
+      this.alertNutrition = true;
+    }
   
     public openPwaDialog(): void {
       this.pwaDialogService.promptInstallation();

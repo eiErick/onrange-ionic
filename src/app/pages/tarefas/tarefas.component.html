@@ -1,0 +1,122 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>
+      TAREFAS
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Onrange</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main">
+  </div>
+
+  <div class="container-task">
+    <div class="task-container-header" (click)="taskListOpen = !this.taskListOpen">
+      <h3>Tarefas</h3>
+      <span>
+        <ion-icon [class.rotate-up]="taskListOpen" [class.rotate-down]="!taskListOpen" name="chevron-up-outline"></ion-icon>
+      </span>      
+    </div>
+    @if (taskListOpen) {
+      @for (task of taskList; track $index) {
+        <div class="task">
+          <div>
+            <ion-radio-group (click)="markDone(task.id)">
+              <ion-radio></ion-radio>
+            </ion-radio-group>
+            <div>
+              <span>
+                {{ task.name }}
+              </span>
+              @if (task.description) {
+                <span class="task-description">
+                  {{ task.description }}
+                </span>
+              }
+            </div>
+          </div>
+          <ion-icon class="trash" name="trash-outline" (click)="deleteTask(task.id)"></ion-icon>
+        </div>
+      } @empty {
+        <span>Nenhuma tarefa pendente :)</span>
+      }
+    }
+  </div>
+
+  <div class="completed-task-container">
+    <div class="task-container-header" (click)="taskCompletedListOpen = !taskCompletedListOpen">
+      <h3>Tarefas Concluídas</h3>
+      <div class="completed-task-menu">
+        <span id="popover-button"><ion-icon name="menu-outline"></ion-icon></span>
+        <span>
+          <ion-icon [class.rotate-up]="taskCompletedListOpen" [class.rotate-down]="!taskCompletedListOpen" name="chevron-up-outline"></ion-icon>
+        </span>
+      </div>
+    </div>
+    @if (taskCompletedListOpen) {
+      @for (task of taskCompletedList; track $index) {
+        <div class="task">
+          <div>
+            <ion-radio-group value="end" (click)="markNotDone(task.id)">
+              <ion-radio value="end"></ion-radio>
+            </ion-radio-group>
+            {{ task.name }}
+          </div>
+          <ion-icon class="trash" name="trash-outline" (click)="deleteCompletedTask(task.id)"></ion-icon>
+        </div>
+      }  @empty {
+        <span>Nenhuma tarefa pendente :)</span>
+      }
+    }
+  </div>
+
+  <ion-popover trigger="popover-button" [dismissOnSelect]="true">
+    <ng-template>
+      <ion-content>
+        <ion-list>
+          <ion-item (click)="deleteAllCheckedtasks()" lines="none" [button]="true" [detail]="false">Deletar tarefas concluídas</ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+
+  <ion-button id="open-modal" class="btn-floating" (click)="setFocusInpTaskName()">
+    <ion-icon name="add-outline"></ion-icon>
+  </ion-button>
+
+  <ion-modal class="task-modal" #modal trigger="open-modal" [initialBreakpoint]=".5" [breakpoints]="[0, 1]">
+    <ng-template>
+      <!-- <ion-header class="ion-no-border">
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="modal.dismiss()" shape="round" color="danger" size="large">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Adicionar Tarefa</ion-title>
+          <ion-buttons slot="end">
+            <ion-button [strong]="true" (click)="addTask()" (click)="modal.dismiss()" color="success" shape="round" size="large">
+              <ion-icon name="add-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header> -->
+      <ion-content class="ion-padding">
+        <div class="add-task-form">
+          <ion-input color="primary" placeholder="Nova tarefa" [(ngModel)]="taskNameInp" #taskNameInpElement (keyup.enter)="addTask()" (keyup.enter)="modal.dismiss()"></ion-input>
+          <!-- <ion-input [(ngModel)]="taskNameInp" #taskNameInpElement (keyup.enter)="addTask()" (keyup.enter)="modal.dismiss()" label="Nova tarefa" labelPlacement="floating"></ion-input> -->
+          <!-- <ion-input aria-label="Primary input" color="primary" placeholder="Descrição" [(ngModel)]="taskDescriptionInp"></ion-input> -->
+          <ion-input [(ngModel)]="taskDescriptionInp" placeholder="Descrição"></ion-input>
+        </div>
+        <div class="add-task-footer">
+          <ion-button (click)="addTask()" (click)="modal.dismiss()">Save</ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

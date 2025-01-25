@@ -1,0 +1,44 @@
+* {
+    overflow: hidden;
+}
+
+mat-dialog-content {
+    background-color: var(--bg-color);
+    overflow-x: hidden;
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    h2 {
+        margin: 10px 0;
+    }
+
+    p, h3, h2, h1 {
+        color: white;
+    }
+
+    .container-btn {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        margin-top: 20px;
+    }
+
+    .lactose {
+        background-color: #ffff0022;
+        margin: auto;
+        padding: 4px;
+        border-radius: 4px;
+    }
+}
+
+@media (min-width: 400px) {
+    mat-dialog-content {
+        overflow-x: hidden;
+        width: 320px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+}

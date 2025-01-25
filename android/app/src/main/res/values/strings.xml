@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Onrange</string>
+    <string name="title_activity_main">Onrange</string>
+    <string name="package_name">io.onrange.onrange</string>
+    <string name="custom_url_scheme">io.onrange.onrange</string>
+</resources>

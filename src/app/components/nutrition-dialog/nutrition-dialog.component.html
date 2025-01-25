@@ -1,0 +1,18 @@
+<mat-dialog-content>
+  <h1>NUTRIÇÃO</h1>
+  <h2>Merenda</h2>
+  <h3>Calorias</h3>
+  <p>{{ data.snackCalories }}</p>
+  @if (data.snackLactose) {
+    <h3 class="lactose">Lactose</h3>
+  }
+  <h2>Almoço</h2>
+  <h3>Calorias</h3>
+  <p>{{ data.louchCalories }}</p>
+  @if (data.louchLactose) {
+    <h3 class="lactose">Lactose</h3>
+  }
+  <div class="container-btn">
+    <button mat-button mat-dialog-close>Fechar</button>
+  </div>
+</mat-dialog-content>
